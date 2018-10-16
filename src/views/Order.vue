@@ -39,102 +39,102 @@
         <transition name="router-slid" mode="out-in">
             <router-view></router-view>
         </transition>
- 
+
     </div>
 </template>
 
 <script>
-    import {mapState, mapMutations} from 'vuex'
-    import AppHeader from '@/components/AppHeader'
-    import AppFooter from '@/components/AppFooter'
-    import ComputeTime from '@/components/ComputeTime'
-    import Loading from '@/components/Loading'
-    import {getImgPath} from '@/components/mixin'
-    import {getOrderList} from '@/service/getData'
-    import {loadMore} from '@/components/mixin'
-    import {imgBaseUrl} from '@/config/env'
+import { mapState, mapMutations } from 'vuex'
+import AppHeader from '@/components/AppHeader'
+import AppFooter from '@/components/AppFooter'
+import ComputeTime from '@/components/ComputeTime'
+import Loading from '@/components/Loading'
+import { getImgPath } from '@/components/mixin'
+import { getOrderList } from '@/service/getData'
+import { loadMore } from '@/components/mixin'
+import { imgBaseUrl } from '@/config/env'
 
 
-    export default {
-      data(){
-            return{
-                orderList: null, //订单列表
-                offset: 0, 
-                preventRepeat: false,  //防止重复获取
-                showLoading: true, //显示加载动画
-                imgBaseUrl
-            }
-        },
-        mounted(){
-            this.initData();
-        },
-        mixins: [loadMore],
-        components: {
-            AppHeader,
-            AppFooter,
-            Loading,
-            ComputeTime,
-        },
-        computed: {
-            ...mapState([
-                'userInfo', 'geohash'
-            ]),
-        },
-        methods: {
-             ...mapMutations([
-               'SAVE_ORDER'
-            ]),
-            //初始化获取信息
-            async initData(){
-                if (this.userInfo && this.userInfo.user_id) {
-                    let res = await getOrderList(this.userInfo.user_id, this.offset);
-                    this.orderList = [...res];
-                    this.hideLoading();
-                }else{
-                    this.hideLoading();
-                }
-            },
-            //加载更多
-            async loaderMore(){
-                if (this.preventRepeat) {
-                    return
-                }
-                this.preventRepeat = true;
-                this.showLoading = true;
-                this.offset += 10;
-                //获取信息
-                let res = await getOrderList(this.userInfo.user_id, this.offset);
-                this.orderList = [...this.orderList, ...res];
-                this.hideLoading();
-                if (res.length < 10) {
-                    return
-                }
-                this.preventRepeat = false;
-            },
-            //显示详情页
-            showDetail(item){
-                this.SAVE_ORDER(item);
-                this.preventRepeat = false;
-                this.$router.push('/order/orderDetail');
-            },
-            //生产环境与发布环境隐藏loading方式不同
-            hideLoading(){
-                this.showLoading = false;
-            },
-        },
-        watch: {
-            userInfo: function (value) {
-                if (value && value.user_id && !this.orderList) {
-                    this.initData();
-                }
-            }
+export default {
+    data() {
+        return {
+            orderList: null, // 订单列表
+            offset: 0,
+            preventRepeat: false, // 防止重复获取
+            showLoading: true, // 显示加载动画
+            imgBaseUrl,
         }
-    }
+    },
+    mounted() {
+        this.initData()
+    },
+    mixins: [loadMore],
+    components: {
+        AppHeader,
+        AppFooter,
+        Loading,
+        ComputeTime,
+    },
+    computed: {
+        ...mapState([
+            'userInfo', 'geohash',
+        ]),
+    },
+    methods: {
+        ...mapMutations([
+            'SAVE_ORDER',
+        ]),
+        // 初始化获取信息
+        async initData() {
+            if (this.userInfo && this.userInfo.user_id) {
+                const res = await getOrderList(this.userInfo.user_id, this.offset)
+                this.orderList = [...res]
+                this.hideLoading()
+            } else {
+                this.hideLoading()
+            }
+        },
+        // 加载更多
+        async loaderMore() {
+            if (this.preventRepeat) {
+                return
+            }
+            this.preventRepeat = true
+            this.showLoading = true
+            this.offset += 10
+            // 获取信息
+            const res = await getOrderList(this.userInfo.user_id, this.offset)
+            this.orderList = [...this.orderList, ...res]
+            this.hideLoading()
+            if (res.length < 10) {
+                return
+            }
+            this.preventRepeat = false
+        },
+        // 显示详情页
+        showDetail(item) {
+            this.SAVE_ORDER(item)
+            this.preventRepeat = false
+            this.$router.push('/order/orderDetail')
+        },
+        // 生产环境与发布环境隐藏loading方式不同
+        hideLoading() {
+            this.showLoading = false
+        },
+    },
+    watch: {
+        userInfo(value) {
+            if (value && value.user_id && !this.orderList) {
+                this.initData()
+            }
+        },
+    },
+}
 </script>
-  
+
 <style lang="scss" scoped>
     @import '../assets/style/mixin';
-    
+
     .order_page{
         background-color: #f1f1f1;
         margin-bottom: 1.95rem;

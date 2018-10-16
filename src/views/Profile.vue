@@ -139,73 +139,73 @@
 <script>
 import AppHeader from '@/components/AppHeader'
 import AppFooter from '@/components/AppFooter'
-import {mapState, mapMutations} from 'vuex'
-import {imgBaseUrl} from '@/config/env'
-import {getImgPath} from '@/components/mixin'
+import { mapState, mapMutations } from 'vuex'
+import { imgBaseUrl } from '@/config/env'
+import { getImgPath } from '@/components/mixin'
 
 export default {
-    data(){
-        return{
-            profiletitle: '我的',
-            username: '登录/注册',           //用户名
-            resetname: '',
-            mobile: '暂无绑定手机号',             //电话号码
-            balance: 0,            //我的余额
-            count : 0,             //优惠券个数
-            pointNumber : 0,       //积分数
-            avatar: '',             //头像地址
-            imgBaseUrl,
-        }
-    },
-    mounted(){
-        this.initData();
-    },
-    mixins: [getImgPath],
-    components:{
-        AppHeader,
-        AppFooter,
-    },
-
-    computed:{
-        ...mapState([
-            'userInfo',
-        ]),
-        //后台会返回两种头像地址格式，分别处理
-        imgpath:function () {
-            let path;
-            if(this.avatar.indexOf('/') !==-1){
-                path = imgBaseUrl +　this.avatar;
-            }else{
-                path = this.getImgPath(this.avatar)
-            }
-            this.SAVE_AVANDER(path);
-            return path;
-        }
-    },
-
-    methods:{
-        ...mapMutations([
-            'SAVE_AVANDER'
-        ]),
-        initData(){
-            if (this.userInfo && this.userInfo.user_id) {
-                this.avatar = this.userInfo.avatar;
-                this.username = this.userInfo.username;
-                this.mobile = this.userInfo.mobile || '暂无绑定手机号';
-                this.balance = this.userInfo.balance;
-                this.count = this.userInfo.gift_amount;
-                this.pointNumber = this.userInfo.point;
-            }else{
-                this.username = '登录/注册';
-                this.mobile = '暂无绑定手机号';
-            }
-        },
-    },
-    watch: {
-        userInfo: function (value){
-            this.initData()
-        }
+  data() {
+    return {
+      profiletitle: '我的',
+      username: '登录/注册', // 用户名
+      resetname: '',
+      mobile: '暂无绑定手机号', // 电话号码
+      balance: 0, // 我的余额
+      count: 0, // 优惠券个数
+      pointNumber: 0, // 积分数
+      avatar: '', // 头像地址
+      imgBaseUrl,
     }
+  },
+  mounted() {
+    this.initData()
+  },
+  mixins: [getImgPath],
+  components: {
+    AppHeader,
+    AppFooter,
+  },
+
+  computed: {
+    ...mapState([
+      'userInfo',
+    ]),
+    // 后台会返回两种头像地址格式，分别处理
+    imgpath() {
+      let path
+      if (this.avatar.indexOf('/') !== -1) {
+        path = imgBaseUrl +　this.avatar
+      } else {
+        path = this.getImgPath(this.avatar)
+      }
+      this.SAVE_AVANDER(path)
+      return path
+    },
+  },
+
+  methods: {
+    ...mapMutations([
+      'SAVE_AVANDER',
+    ]),
+    initData() {
+      if (this.userInfo && this.userInfo.user_id) {
+        this.avatar = this.userInfo.avatar
+        this.username = this.userInfo.username
+        this.mobile = this.userInfo.mobile || '暂无绑定手机号'
+        this.balance = this.userInfo.balance
+        this.count = this.userInfo.gift_amount
+        this.pointNumber = this.userInfo.point
+      } else {
+        this.username = '登录/注册'
+        this.mobile = '暂无绑定手机号'
+      }
+    },
+  },
+  watch: {
+    userInfo(value) {
+      this.initData()
+    },
+  },
 }
 
 </script>

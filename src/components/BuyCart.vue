@@ -32,72 +32,75 @@
 </template>
 
 <script>
-    import {mapState, mapMutations} from 'vuex'
-    export default {
-    	data(){
-            return{
-               showMoveDot: [], //控制下落的小圆点显示隐藏
-            }
-        },
-        mounted(){
-            
-        },
-        computed: {
-            ...mapState([
-                'cartList'
-            ]),
-            /**
+import { mapState, mapMutations } from 'vuex'
+
+export default {
+    	data() {
+    return {
+      showMoveDot: [], // 控制下落的小圆点显示隐藏
+    }
+  },
+  mounted() {
+
+  },
+  computed: {
+    ...mapState([
+      'cartList',
+    ]),
+    /**
              * 监听cartList变化，更新当前商铺的购物车信息shopCart，同时返回一个新的对象
              */
-            shopCart: function (){
-                return Object.assign({},this.cartList[this.shopId]);
-            },
-            //shopCart变化的时候重新计算当前商品的数量
-            foodNum: function (){
-                let category_id = this.foods.category_id;
-                let item_id = this.foods.item_id;
-                if (this.shopCart&&this.shopCart[category_id]&&this.shopCart[category_id][item_id]) {
-                    let num = 0;
-                    Object.values(this.shopCart[category_id][item_id]).forEach((item,index) => {
-                        num += item.num;
-                    })
-                    return num;
-                }else {
-                    return 0;
-                }
-            },
-        },
-        props:['foods', 'shopId'],
-        methods: {
-            ...mapMutations([
-                'ADD_CART','REDUCE_CART',
-            ]),
-            //移出购物车
-            removeOutCart(category_id, item_id, food_id, name, price, specs, packing_fee, sku_id, stock){
-                if (this.foodNum > 0) {
-                    this.REDUCE_CART({shopid: this.shopId, category_id, item_id, food_id, name, price, specs, packing_fee, sku_id, stock});
-                }
-            },
-            //加入购物车，计算按钮位置。
-            addToCart(category_id, item_id, food_id, name, price, specs, packing_fee, sku_id, stock, event){
-                this.ADD_CART({shopid: this.shopId, category_id, item_id, food_id, name, price, specs, packing_fee, sku_id, stock});
-                let elLeft = event.target.getBoundingClientRect().left;
-                let elBottom = event.target.getBoundingClientRect().bottom;
-                this.showMoveDot.push(true);
-                this.$emit('showMoveDot', this.showMoveDot, elLeft, elBottom);
+    shopCart() {
+      return Object.assign({}, this.cartList[this.shopId])
+    },
+    // shopCart变化的时候重新计算当前商品的数量
+    foodNum() {
+      const category_id = this.foods.category_id
+      const item_id = this.foods.item_id
+      if (this.shopCart && this.shopCart[category_id] && this.shopCart[category_id][item_id]) {
+        let num = 0
+        Object.values(this.shopCart[category_id][item_id]).forEach((item, index) => {
+          num += item.num
+        })
+        return num
+      }
+      return 0
+    },
+  },
+  props: ['foods', 'shopId'],
+  methods: {
+    ...mapMutations([
+      'ADD_CART', 'REDUCE_CART',
+    ]),
+    // 移出购物车
+    removeOutCart(category_id, item_id, food_id, name, price, specs, packing_fee, sku_id, stock) {
+      if (this.foodNum > 0) {
+        this.REDUCE_CART({
+          shopid: this.shopId, category_id, item_id, food_id, name, price, specs, packing_fee, sku_id, stock,
+        })
+      }
+    },
+    // 加入购物车，计算按钮位置。
+    addToCart(category_id, item_id, food_id, name, price, specs, packing_fee, sku_id, stock, event) {
+      this.ADD_CART({
+        shopid: this.shopId, category_id, item_id, food_id, name, price, specs, packing_fee, sku_id, stock,
+      })
+      const elLeft = event.target.getBoundingClientRect().left
+      const elBottom = event.target.getBoundingClientRect().bottom
+      this.showMoveDot.push(true)
+      this.$emit('showMoveDot', this.showMoveDot, elLeft, elBottom)
+    },
+    // 显示规格列表
+    showChooseList(foodScroll) {
+      this.$emit('showChooseList', foodScroll)
+    },
+    // 点击多规格商品的减按钮，弹出提示
+    showReduceTip() {
+      this.$emit('showReduceTip')
+    },
 
-            },
-            //显示规格列表
-            showChooseList(foodScroll){
-                this.$emit('showChooseList', foodScroll)
-            },
-            //点击多规格商品的减按钮，弹出提示
-            showReduceTip(){
-                this.$emit('showReduceTip')
-            },
-            
-        },
-    }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -159,6 +162,6 @@
         opacity: 0;
         transform: scale(.7);
     }
-    
+
 </style>
 

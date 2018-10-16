@@ -1,6 +1,6 @@
  <template>
     <div class="alet_container">
-	    <section class="tip_text_container">
+        <section class="tip_text_container">
             <div class="tip_icon">
                 <span></span>
                 <span></span>
@@ -12,28 +12,28 @@
 </template>
 
 <script>
-    export default {
-    	data(){
-            return{
-                positionY: 0,
-                timer: null,
-            }
-        },
-        mounted(){
-      
-        },
-        props: ['alertText'],
-        methods: {
-            closeTip(){
-                this.$emit('closeTip')
-            }
-        }
+export default {
+  data() {
+    return {
+      positionY: 0,
+      timer: null,
     }
+  },
+  mounted() {
+
+  },
+  props: ['alertText'],
+  methods: {
+    closeTip() {
+      this.$emit('closeTip')
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
-    @import '../assets/style/mixin';
-	@keyframes tipMove{
+@import '../assets/style/mixin';
+@keyframes tipMove{
        0%   { transform: scale(1) }
        35%  { transform: scale(.8) }
        70%  { transform: scale(1.1) }
@@ -104,5 +104,5 @@
             border-bottom-right-radius: 0.25rem;
         }
     }
-    
+
 </style>

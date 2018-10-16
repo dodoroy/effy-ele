@@ -6,7 +6,7 @@ import { getStore } from '../config/mUtils'
  */
 
 export const cityGuess = () => fetch('/v1/cities', {
-    type: 'guess',
+  type: 'guess',
 })
 
 
@@ -15,7 +15,7 @@ export const cityGuess = () => fetch('/v1/cities', {
  */
 
 export const hotcity = () => fetch('/v1/cities', {
-    type: 'hot',
+  type: 'hot',
 })
 
 
@@ -24,7 +24,7 @@ export const hotcity = () => fetch('/v1/cities', {
  */
 
 export const groupcity = () => fetch('/v1/cities', {
-    type: 'group',
+  type: 'group',
 })
 
 
@@ -40,9 +40,9 @@ export const currentcity = number => fetch(`/v1/cities/${number}`)
  */
 
 export const searchplace = (cityid, value) => fetch('/v1/pois', {
-    type: 'search',
-    city_id: cityid,
-    keyword: value,
+  type: 'search',
+  city_id: cityid,
+  keyword: value,
 })
 
 
@@ -58,9 +58,9 @@ export const msiteAddress = geohash => fetch(`/v2/pois/${geohash}`)
  */
 
 export const msiteFoodTypes = geohash => fetch('/v2/index_entry', {
-    geohash,
-    group_type: '1',
-    'flags[]': 'F',
+  geohash,
+  group_type: '1',
+  'flags[]': 'F',
 })
 
 
@@ -69,25 +69,25 @@ export const msiteFoodTypes = geohash => fetch('/v2/index_entry', {
  */
 
 export const shopList = (latitude, longitude, offset, restaurant_category_id = '', restaurant_category_ids = '', order_by = '', deliveryMode = '', support_ids = []) => {
-    let supportStr = ''
-    support_ids.forEach((item) => {
-        if (item.status) {
-            supportStr += `&support_ids[]=${item.id}`
-        }
-    })
-    const data = {
-        latitude,
-        longitude,
-        offset,
-        limit: '20',
-        'extras[]': 'activities',
-        keyword: '',
-        restaurant_category_id,
-        'restaurant_category_ids[]': restaurant_category_ids,
-        order_by,
-        'deliveryMode[]': deliveryMode + supportStr,
+  let supportStr = ''
+  support_ids.forEach((item) => {
+    if (item.status) {
+      supportStr += `&support_ids[]=${item.id}`
     }
-    return fetch('/shopping/restaurants', data)
+  })
+  const data = {
+    latitude,
+    longitude,
+    offset,
+    limit: '20',
+    'extras[]': 'activities',
+    keyword: '',
+    restaurant_category_id,
+    'restaurant_category_ids[]': restaurant_category_ids,
+    order_by,
+    'deliveryMode[]': deliveryMode + supportStr,
+  }
+  return fetch('/shopping/restaurants', data)
 }
 
 
@@ -96,10 +96,10 @@ export const shopList = (latitude, longitude, offset, restaurant_category_id = '
  */
 
 export const searchRestaurant = (geohash, keyword) => fetch('/v4/restaurants', {
-    'extras[]': 'restaurant_activity',
-    geohash,
-    keyword,
-    type: 'search',
+  'extras[]': 'restaurant_activity',
+  geohash,
+  keyword,
+  type: 'search',
 })
 
 
@@ -108,8 +108,8 @@ export const searchRestaurant = (geohash, keyword) => fetch('/v4/restaurants', {
  */
 
 export const foodCategory = (latitude, longitude) => fetch('/shopping/v2/restaurant/category', {
-    latitude,
-    longitude,
+  latitude,
+  longitude,
 })
 
 
@@ -118,9 +118,9 @@ export const foodCategory = (latitude, longitude) => fetch('/shopping/v2/restaur
  */
 
 export const foodDelivery = (latitude, longitude) => fetch('/shopping/v1/restaurants/delivery_modes', {
-    latitude,
-    longitude,
-    kw: '',
+  latitude,
+  longitude,
+  kw: '',
 })
 
 
@@ -129,9 +129,9 @@ export const foodDelivery = (latitude, longitude) => fetch('/shopping/v1/restaur
  */
 
 export const foodActivity = (latitude, longitude) => fetch('/shopping/v1/restaurants/activity_attributes', {
-    latitude,
-    longitude,
-    kw: '',
+  latitude,
+  longitude,
+  kw: '',
 })
 
 
@@ -140,8 +140,8 @@ export const foodActivity = (latitude, longitude) => fetch('/shopping/v1/restaur
  */
 
 export const shopDetails = (shopid, latitude, longitude) => fetch(`/shopping/restaurant/${shopid}`, {
-    latitude,
-    longitude: `${longitude}&extras[]=activities&extras[]=album&extras[]=license&extras[]=identification&extras[]=statistics`,
+  latitude,
+  longitude: `${longitude}&extras[]=activities&extras[]=album&extras[]=license&extras[]=identification&extras[]=statistics`,
 })
 
 
@@ -149,8 +149,8 @@ export const shopDetails = (shopid, latitude, longitude) => fetch(`/shopping/res
  * 获取shop页面菜单列表
  */
 
-export const foodMenu = restaurantId => fetch('/shopping/v2/menu', {
-    restaurantId,
+export const foodMenu = restaurant_id => fetch('/shopping/v2/menu', {
+  restaurant_id,
 })
 
 
@@ -159,10 +159,10 @@ export const foodMenu = restaurantId => fetch('/shopping/v2/menu', {
  */
 
 export const getRatingList = (shopid, offset, tag_name = '') => fetch(`/ugc/v2/restaurants/${shopid}/ratings`, {
-    has_content: true,
-    offset,
-    limit: 10,
-    tag_name,
+  has_content: true,
+  offset,
+  limit: 10,
+  tag_name,
 })
 
 
@@ -185,9 +185,9 @@ export const ratingTags = shopid => fetch(`/ugc/v2/restaurants/${shopid}/ratings
  */
 
 export const mobileCode = phone => fetch('/v4/mobile/verify_code/send', {
-    mobile: phone,
-    scene: 'login',
-    type: 'sms',
+  mobile: phone,
+  scene: 'login',
+  type: 'sms',
 }, 'POST')
 
 
@@ -203,8 +203,8 @@ export const getcaptchas = () => fetch('/v1/captchas', {}, 'POST')
  */
 
 export const checkExsis = (checkNumber, type) => fetch('/v1/users/exists', {
-    [type]: checkNumber,
-    type,
+  [type]: checkNumber,
+  type,
 })
 
 
@@ -213,12 +213,12 @@ export const checkExsis = (checkNumber, type) => fetch('/v1/users/exists', {
  */
 
 export const sendMobile = (sendData, captchaCode, type, password) => fetch('/v1/mobile/verify_code/send', {
-    action: 'send',
-    captchaCode,
-    [type]: sendData,
-    type: 'sms',
-    way: type,
-    password,
+  action: 'send',
+  captchaCode,
+  [type]: sendData,
+  type: 'sms',
+  way: type,
+  password,
 }, 'POST')
 
 
@@ -227,10 +227,10 @@ export const sendMobile = (sendData, captchaCode, type, password) => fetch('/v1/
  */
 
 export const checkout = (geohash, entities, shopid) => fetch('/v1/carts/checkout', {
-    come_from: 'web',
-    geohash,
-    entities,
-    restaurantId: shopid,
+  come_from: 'web',
+  geohash,
+  entities,
+  restaurant_id: shopid,
 }, 'POST')
 
 
@@ -239,7 +239,7 @@ export const checkout = (geohash, entities, shopid) => fetch('/v1/carts/checkout
  */
 
 export const getRemark = (id, sig) => fetch(`/v1/carts/${id}/remarks`, {
-    sig,
+  sig,
 })
 
 
@@ -248,7 +248,7 @@ export const getRemark = (id, sig) => fetch(`/v1/carts/${id}/remarks`, {
  */
 
 export const getAddress = (id, sig) => fetch(`/v1/carts/${id}/addresses`, {
-    sig,
+  sig,
 })
 
 
@@ -257,8 +257,8 @@ export const getAddress = (id, sig) => fetch(`/v1/carts/${id}/addresses`, {
  */
 
 export const searchNearby = keyword => fetch('/v1/pois', {
-    type: 'nearby',
-    keyword,
+  type: 'nearby',
+  keyword,
 })
 
 
@@ -267,16 +267,16 @@ export const searchNearby = keyword => fetch('/v1/pois', {
  */
 
 export const postAddAddress = (userId, address, addressDetail, geohash, name, phone, phoneBk, poiType, sex, tag, tagType) => fetch(`/v1/users/${userId}/addresses`, {
-    address,
-    addressDetail,
-    geohash,
-    name,
-    phone,
-    phoneBk,
-    poiType,
-    sex,
-    tag,
-    tagType,
+  address,
+  addressDetail,
+  geohash,
+  name,
+  phone,
+  phoneBk,
+  poiType,
+  sex,
+  tag,
+  tagType,
 }, 'POST')
 
 
@@ -285,14 +285,14 @@ export const postAddAddress = (userId, address, addressDetail, geohash, name, ph
  */
 
 export const placeOrders = (userId, cartId, addressId, description, entities, geohash, sig) => fetch(`/v1/users/${userId}/carts/${cartId}/orders`, {
-    addressId,
-    come_from: 'mobile_web',
-    deliver_time: '',
-    description,
-    entities,
-    geohash,
-    paymethod_id: 1,
-    sig,
+  addressId,
+  come_from: 'mobile_web',
+  deliver_time: '',
+  description,
+  entities,
+  geohash,
+  paymethod_id: 1,
+  sig,
 }, 'POST')
 
 
@@ -301,8 +301,8 @@ export const placeOrders = (userId, cartId, addressId, description, entities, ge
  */
 
 export const rePostVerify = (cartId, sig, type) => fetch(`/v1/carts/${cartId}/verify_code`, {
-    sig,
-    type,
+  sig,
+  type,
 }, 'POST')
 
 
@@ -311,26 +311,26 @@ export const rePostVerify = (cartId, sig, type) => fetch(`/v1/carts/${cartId}/ve
  */
 
 export const validateOrders = ({
-    userId,
-    cartId,
-    addressId,
-    description,
-    entities,
-    geohash,
-    sig,
-    validationCode,
-    validationToken,
+  userId,
+  cartId,
+  addressId,
+  description,
+  entities,
+  geohash,
+  sig,
+  validationCode,
+  validationToken,
 }) => fetch(`/v1/users/${userId}/carts/${cartId}/orders`, {
-    addressId,
-    come_from: 'mobile_web',
-    deliver_time: '',
-    description,
-    entities,
-    geohash,
-    paymethod_id: 1,
-    sig,
-    validationCode,
-    validationToken,
+  addressId,
+  come_from: 'mobile_web',
+  deliver_time: '',
+  description,
+  entities,
+  geohash,
+  paymethod_id: 1,
+  sig,
+  validationCode,
+  validationToken,
 }, 'POST')
 
 
@@ -339,11 +339,11 @@ export const validateOrders = ({
  */
 
 export const payRequest = (merchantOrderNo, userId) => fetch('/payapi/payment/queryOrder', {
-    merchantId: 5,
-    merchantOrderNo,
-    source: 'MOBILE_WAP',
-    userId,
-    version: '1.0.0',
+  merchantId: 5,
+  merchantOrderNo,
+  source: 'MOBILE_WAP',
+  userId,
+  version: '1.0.0',
 })
 
 
@@ -359,8 +359,8 @@ export const getService = () => fetch('/v3/profile/explain')
 */
 
 export const vipCart = (id, number, password) => fetch(`/member/v1/users/${id}/delivery_card/physical_card/bind`, {
-    number,
-    password,
+  number,
+  password,
 }, 'POST')
 
 
@@ -384,8 +384,8 @@ export const getExpired = id => fetch(`/promotion/v2/users/${id}/expired_hongbao
 */
 
 export const exChangeHongbao = (id, exchangeCode, captchaCode) => fetch(`/v1/users/${id}/hongbao/exchange`, {
-    exchangeCode,
-    captchaCode,
+  exchangeCode,
+  captchaCode,
 }, 'POST')
 
 
@@ -401,9 +401,9 @@ export const getUser = () => fetch('/v1/user', { userId: getStore('userId') })
  */
 
 export const sendLogin = (code, mobile, validateToken) => fetch('/v1/login/app_mobile', {
-    code,
-    mobile,
-    validateToken,
+  code,
+  mobile,
+  validateToken,
 }, 'POST')
 
 
@@ -412,8 +412,8 @@ export const sendLogin = (code, mobile, validateToken) => fetch('/v1/login/app_m
  */
 
 export const getOrderList = (userId, offset) => fetch(`/bos/v2/users/${userId}/orders`, {
-    limit: 10,
-    offset,
+  limit: 10,
+  offset,
 })
 
 
@@ -435,8 +435,8 @@ export const getAddressList = userId => fetch(`/v1/users/${userId}/addresses`)
 */
 
 export const getSearchAddress = keyword => fetch('v1/pois', {
-    keyword,
-    type: 'nearby',
+  keyword,
+  type: 'nearby',
 })
 
 /**
@@ -462,5 +462,5 @@ export const signout = () => fetch('/v2/signout')
  * 改密码
  */
 export const changePassword = (username, oldpassWord, newpassword, confirmpassword, captchaCode) => fetch('/v2/changepassword', {
-    username, oldpassWord, newpassword, confirmpassword, captchaCode,
+  username, oldpassWord, newpassword, confirmpassword, captchaCode,
 }, 'POST')

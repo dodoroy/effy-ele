@@ -57,12 +57,12 @@
 <script>
 import AppHeader from '@/components/AppHeader'
 import AppFooter from '@/components/AppFooter'
-import {searchRestaurant} from '@/service/getData'
-import {imgBaseUrl} from '@/config/env'
-import {getStore, setStore} from '@/config/mUtils'
+import { searchRestaurant } from '@/service/getData'
+import { imgBaseUrl } from '@/config/env'
+import { getStore, setStore } from '@/config/mUtils'
 
 export default {
-	data(){
+    data() {
         return {
             geohash: '', // msite页面传递过来的地址信息
             searchValue: '', // 搜索内容
@@ -73,80 +73,80 @@ export default {
             emptyResult: false, // 搜索结果为空时显示
         }
     },
-    created(){
-       
+    created() {
+
     },
-    mounted(){
-        this.geohash = this.$route.params.geohash;
-        //获取搜索历史记录
+    mounted() {
+        this.geohash = this.$route.params.geohash
+        // 获取搜索历史记录
         if (getStore('searchHistory')) {
-            this.searchHistory = JSON.parse(getStore('searchHistory'));
+            this.searchHistory = JSON.parse(getStore('searchHistory'))
         }
     },
-    components:{
+    components: {
         AppHeader,
         AppFooter,
     },
-    methods:{
-        //点击提交按钮，搜索结果并显示，同时将搜索内容存入历史记录
-        async searchTarget(historyValue){
+    methods: {
+        // 点击提交按钮，搜索结果并显示，同时将搜索内容存入历史记录
+        async searchTarget(historyValue) {
             if (historyValue) {
-                this.searchValue = historyValue;
-            }else if (!this.searchValue) {
-                return 
+                this.searchValue = historyValue
+            } else if (!this.searchValue) {
+                return
             }
-            //隐藏历史记录
-            this.showHistory = false;
-            //获取搜索结果
-            this.restaurantList = await searchRestaurant(this.geohash, this.searchValue);
-            this.emptyResult = !this.restaurantList.length;
+            // 隐藏历史记录
+            this.showHistory = false
+            // 获取搜索结果
+            this.restaurantList = await searchRestaurant(this.geohash, this.searchValue)
+            this.emptyResult = !this.restaurantList.length
             /**
              * 点击搜索结果进入下一页面时进行判断是否已经有一样的历史记录
              * 如果没有则新增，如果有则不做重复储存，判断完成后进入下一页
              */
-            let history = getStore('searchHistory');
-            if (history) { 
-                let checkrepeat = false;
-                this.searchHistory = JSON.parse(history);
-                this.searchHistory.forEach(item => {
+            const history = getStore('searchHistory')
+            if (history) {
+                let checkrepeat = false
+                this.searchHistory = JSON.parse(history)
+                this.searchHistory.forEach((item) => {
                     if (item == this.searchValue) {
-                        checkrepeat = true;
+                        checkrepeat = true
                     }
                 })
                 if (!checkrepeat) {
                     this.searchHistory.push(this.searchValue)
                 }
-            }else {
+            } else {
                 this.searchHistory.push(this.searchValue)
             }
-            setStore('searchHistory',this.searchHistory)
+            setStore('searchHistory', this.searchHistory)
         },
-        //搜索结束后，删除搜索内容直到为空时清空搜索结果，并显示历史记录
-        checkInput(){
+        // 搜索结束后，删除搜索内容直到为空时清空搜索结果，并显示历史记录
+        checkInput() {
             if (this.searchValue === '') {
-                this.showHistory = true; //显示历史记录
-                this.restaurantList = []; //清空搜索结果
-                this.emptyResult = false; //隐藏搜索为空提示
-            } 
+                this.showHistory = true // 显示历史记录
+                this.restaurantList = [] // 清空搜索结果
+                this.emptyResult = false // 隐藏搜索为空提示
+            }
         },
-        //点击删除按钮，删除当前历史记录
-        deleteHistory(index){
-            this.searchHistory.splice(index, 1);
-            setStore('searchHistory',this.searchHistory);
+        // 点击删除按钮，删除当前历史记录
+        deleteHistory(index) {
+            this.searchHistory.splice(index, 1)
+            setStore('searchHistory', this.searchHistory)
         },
-        //清除所有历史记录
-        clearAllHistory(){
-            this.searchHistory = [];
-            setStore('searchHistory',this.searchHistory);
-        }
-    }
+        // 清除所有历史记录
+        clearAllHistory() {
+            this.searchHistory = []
+            setStore('searchHistory', this.searchHistory)
+        },
+    },
 }
 
 </script>
 
 <style lang="scss" scoped>
     @import '../assets/style/mixin';
-    
+
     .search_page{
         margin-bottom: 2rem;
     }

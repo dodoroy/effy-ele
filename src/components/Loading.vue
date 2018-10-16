@@ -9,22 +9,22 @@
 </template>
 
 <script>
-    export default {
-    	data(){
-            return{
-                positionY: 0,
-                timer: null,
-            }
-        },
-        mounted(){
-        	this.timer = setInterval(() => {
-        		this.positionY ++;
-        	}, 600)
-        },
-        beforeDestroy(){
-        	clearInterval(this.timer);
+export default {
+    	data() {
+        return {
+            positionY: 0,
+            timer: null,
         }
-    }
+    },
+    mounted() {
+        	this.timer = setInterval(() => {
+        		this.positionY++
+        	}, 600)
+    },
+    beforeDestroy() {
+        	clearInterval(this.timer)
+    },
+}
 </script>
 
 <style lang="scss" scoped>
