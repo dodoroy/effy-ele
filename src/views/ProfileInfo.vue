@@ -19,7 +19,7 @@
                     </span>
                 </div>
             </section>
-            <router-link to="/profile/info/setusername" class="info-router">
+            <router-link to="/profile/info/username" class="info-router">
                 <section class="headportrait headportraitwo">
                     <h2>用户名</h2>
                     <div class="headportrait-div">
@@ -32,24 +32,13 @@
                     </div>
                 </section>
             </router-link>
-            <router-link to="/profile/info/address" class="info-router">
-                <section class="headportrait headportraitwo headportraithree">
-                        <h2>收货地址</h2>
-                        <div class="headportrait-div">
-                            <span class="headportrait-div-bottom">
-                                <svg fill="#d8d8d8">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
-                                </svg>
-                            </span>
-                        </div>
-                </section>
-            </router-link>
+
             <section class="bind-phone">
                 账号绑定
             </section>
             <section class="info-router" @click="changePhone">
                 <section class="headportrait headportraitwo headportraithree">
-                        <h2><img src="../../../images/bindphone.png" style="display:inline-block;margin-right:.4rem;" alt="">手机</h2>
+                        <h2><img src="../assets/images/bindphone.png" style="display:inline-block;margin-right:.4rem;" alt="">手机</h2>
                         <div class="headportrait-div">
                             <p>{{infotel}}</p>
                             <span class="headportrait-div-bottom">
@@ -150,7 +139,7 @@ export default {
       this.isLeave=false
     },
     waitingThing(){
-      //取消推出
+      //取消退出
       clearTimeout(this.timer)
       this.isEnter=false
       this.isLeave=true
@@ -208,7 +197,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import 'src/style/mixin.scss';
+    @import '../assets/style/mixin.scss';
 
     .rating_page{
         position: absolute;
@@ -380,7 +369,7 @@ export default {
 
         }
     }
-    @-webkit-keyframes bounceIn {
+@-webkit-keyframes bounceIn {
   from, 20%, 40%, 60%, 80%, 100% {
     -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
     animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);

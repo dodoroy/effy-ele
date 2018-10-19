@@ -45,15 +45,15 @@
                 </ul>
             </section>
             <section class="profile-1reTe">
-                <!-- 我的订单 -->
-                <router-link to='/order' class="myorder">
+                <!-- 我的地址 -->
+                <router-link to='/profile/address' class="myorder">
                     <aside>
                         <svg fill="#4aa5f0">
-                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#order"></use>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#address"></use>
                         </svg>
                     </aside>
                     <div class="myorder-div">
-                        <span>我的订单</span>
+                        <span>我的地址</span>
                         <span class="myorder-divsvg">
                             <svg fill="#bbb">
                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>

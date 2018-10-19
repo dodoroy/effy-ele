@@ -35,7 +35,7 @@
 import { mapState, mapMutations } from 'vuex'
 
 export default {
-    	data() {
+  data() {
     return {
       showMoveDot: [], // 控制下落的小圆点显示隐藏
     }
@@ -48,8 +48,8 @@ export default {
       'cartList',
     ]),
     /**
-             * 监听cartList变化，更新当前商铺的购物车信息shopCart，同时返回一个新的对象
-             */
+    * 监听cartList变化，更新当前商铺的购物车信息shopCart，同时返回一个新的对象
+    */
     shopCart() {
       return Object.assign({}, this.cartList[this.shopId])
     },
@@ -104,64 +104,64 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '../assets/style/mixin';
-	.cart_module{
-        .add_icon{
-            position: relative;
-            z-index: 999;
-        }
-        .cart_button{
+@import '../assets/style/mixin';
+.cart_module{
+    .add_icon{
+        position: relative;
+        z-index: 999;
+    }
+    .cart_button{
+        display: flex;
+        align-items: center;
+    }
+    svg{
+        @include wh(.9rem, .9rem);
+        fill: #3190e8;
+    }
+    .specs_reduce_icon{
+        fill: #999;
+    }
+    .cart_num{
+        @include sc(.65rem, #666);
+        min-width: 1rem;
+        text-align: center;
+        font-family: Helvetica Neue,Tahoma;
+    }
+    .choose_specification{
+        .choose_icon_container{
             display: flex;
             align-items: center;
-        }
-        svg{
-            @include wh(.9rem, .9rem);
-            fill: #3190e8;
-        }
-        .specs_reduce_icon{
-            fill: #999;
-        }
-        .cart_num{
-            @include sc(.65rem, #666);
-            min-width: 1rem;
-            text-align: center;
-            font-family: Helvetica Neue,Tahoma;
-        }
-        .choose_specification{
-            .choose_icon_container{
-                display: flex;
-                align-items: center;
-                .show_chooselist{
-                    display: block;
-                    @include sc(.55rem, #fff);
-                    padding: .1rem .2rem;
-                    background-color: $blue;
-                    border-radius: 0.2rem;
-                    border: 1px solid $blue;
-                }
+            .show_chooselist{
+                display: block;
+                @include sc(.55rem, #fff);
+                padding: .1rem .2rem;
+                background-color: $blue;
+                border-radius: 0.2rem;
+                border: 1px solid $blue;
             }
         }
     }
-    .showReduce-enter-active, .showReduce-leave-active {
-        transition: all .3s ease-out;
-    }
-    .showReduce-enter, .showReduce-leave-active {
-        opacity: 0;
-        transform: translateX(1rem);
-    }
-    .fade-enter-active, .fade-leave-active {
-        transition: all .3s;
-    }
-    .fade-enter, .fade-leave-active {
-        opacity: 0;
-    }
-    .fadeBounce-enter-active, .fadeBounce-leave-active {
-        transition: all .3s;
-    }
-    .fadeBounce-enter, .fadeBounce-leave-active {
-        opacity: 0;
-        transform: scale(.7);
-    }
+}
+.showReduce-enter-active, .showReduce-leave-active {
+    transition: all .3s ease-out;
+}
+.showReduce-enter, .showReduce-leave-active {
+    opacity: 0;
+    transform: translateX(1rem);
+}
+.fade-enter-active, .fade-leave-active {
+    transition: all .3s;
+}
+.fade-enter, .fade-leave-active {
+    opacity: 0;
+}
+.fadeBounce-enter-active, .fadeBounce-leave-active {
+    transition: all .3s;
+}
+.fadeBounce-enter, .fadeBounce-leave-active {
+    opacity: 0;
+    transform: scale(.7);
+}
 
 </style>
 

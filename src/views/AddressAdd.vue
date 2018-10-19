@@ -35,7 +35,7 @@
             <section class="section_list">
                 <span class="section_left">送餐地址</span>
                 <section class="section_right">
-                    <router-link to="/confirmOrder/chooseAddress/addAddress/searchAddress" tag="div" class="choose_address">{{searchAddress? searchAddress.name : '小区/写字楼/学校等'}}</router-link>
+                    <router-link to="search" tag="div" class="choose_address">{{searchAddress? searchAddress.name : '小区/写字楼/学校等'}}</router-link>
                     <input type="text" name="address_detail" placeholder="详细地址（如门牌号等）" v-model="address_detail" class="input_style">
 
                 </section>
@@ -109,8 +109,8 @@ export default {
         this.showAlert = true
         this.alertText = '请输入电话号码'
       }else if(!this.searchAddress){
-        this.showAlert = true
-        this.alertText = '请选择地址'
+        // this.showAlert = true
+        // this.alertText = '请选择地址'
       }else if(!this.address_detail){
         this.showAlert = true
         this.alertText = '请输入详细地址'
@@ -121,7 +121,7 @@ export default {
         this.tag_type = 3
       }else if(this.tag == '公司'){
         this.tag_type = 4
-      }
+      }alert('b')
       let res = await postAddAddress(this.userInfo.user_id, this.searchAddress.name, this.address_detail, this.geohash, this.name, this.phone, this.anntherPhoneNumber, 0, this.sex, this.tag, this.tag_type)
       //保存成功返沪上一页，否则弹出提示框
       if (res.message) {
@@ -137,87 +137,87 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '../assets/style/mixin';
+@import '../assets/style/mixin';
 
-    .address_page{
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #f5f5f5;
-        z-index: 204;
-        padding-top: 1.95rem;
-        p, span, input{
-            font-family: Helvetica Neue,Tahoma,Arial;
+.address_page{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f5f5f5;
+    z-index: 204;
+    padding-top: 1.95rem;
+    p, span, input{
+        font-family: Helvetica Neue,Tahoma,Arial;
+    }
+}
+.page_text_container{
+    background-color: #fff;
+    padding: 0 .7rem;
+}
+.section_list{
+    display: flex;
+    border-bottom: 0.025rem solid #f5f5f5;
+    .section_left{
+        @include sc(.7rem, #333);
+        flex: 2;
+        line-height: 2.5rem;
+    }
+    .section_right{
+        flex: 5;
+        .input_style{
+            width: 100%;
+            height: 2.5rem;
+            @include sc(.7rem, #999);
         }
-    }
-    .page_text_container{
-        background-color: #fff;
-        padding: 0 .7rem;
-    }
-    .section_list{
-        display: flex;
-        border-bottom: 0.025rem solid #f5f5f5;
-        .section_left{
-            @include sc(.7rem, #333);
-            flex: 2;
+        .phone_bk{
+            border-top: 0.025rem solid #f5f5f5;
+        }
+        .phone_add{
+            @include fj;
+            align-items: center;
+        }
+        .choose_sex{
+            display: flex;
             line-height: 2.5rem;
-        }
-        .section_right{
-            flex: 5;
-            .input_style{
-                width: 100%;
-                height: 2.5rem;
-                @include sc(.7rem, #999);
-            }
-            .phone_bk{
-                border-top: 0.025rem solid #f5f5f5;
-            }
-            .phone_add{
-                @include fj;
-                align-items: center;
-            }
-            .choose_sex{
+            border-top: 0.025rem solid #f5f5f5;
+            .choose_option{
+                @include sc(.7rem, #333);
                 display: flex;
-                line-height: 2.5rem;
-                border-top: 0.025rem solid #f5f5f5;
-                .choose_option{
-                    @include sc(.7rem, #333);
-                    display: flex;
-                    align-items: center;
-                    margin-right: .8rem;
-                    svg{
-                        margin-right: .3rem;
-                        @include wh(.8rem, .8rem);
-                        fill: #ccc;
-                    }
-                    .choosed{
-                        fill: #4cd964;
-                    }
+                align-items: center;
+                margin-right: .8rem;
+                svg{
+                    margin-right: .3rem;
+                    @include wh(.8rem, .8rem);
+                    fill: #ccc;
+                }
+                .choosed{
+                    fill: #4cd964;
                 }
             }
-            .choose_address{
-                @include sc(.7rem, #999);
-                line-height: 2.5rem;
-                border-bottom: 0.025rem solid #f5f5f5;
-            }
+        }
+        .choose_address{
+            @include sc(.7rem, #999);
+            line-height: 2.5rem;
+            border-bottom: 0.025rem solid #f5f5f5;
         }
     }
-    .determine{
-        background-color: #4cd964;
-        @include sc(.7rem, #fff);
-        text-align: center;
-        margin: 0 .7rem;
-        line-height: 1.8rem;
-        border-radius: 0.2rem;
-        margin-top: .6rem;
-    }
-    .router-slid-enter-active, .router-slid-leave-active {
-        transition: all .4s;
-    }
-    .router-slid-enter, .router-slid-leave-active {
-        transform: translate3d(2rem, 0, 0);
-        opacity: 0;
-    }
+}
+.determine{
+    background-color: #4cd964;
+    @include sc(.7rem, #fff);
+    text-align: center;
+    margin: 0 .7rem;
+    line-height: 1.8rem;
+    border-radius: 0.2rem;
+    margin-top: .6rem;
+}
+.router-slid-enter-active, .router-slid-leave-active {
+    transition: all .4s;
+}
+.router-slid-enter, .router-slid-leave-active {
+    transform: translate3d(2rem, 0, 0);
+    opacity: 0;
+}
 </style>

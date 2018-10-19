@@ -1,24 +1,24 @@
 <template>
   <div>
-    <app-header signInUp='msite'>
+    <app-header sign-in-up='msite'>
       <router-link :to="'/search/geohash'" class="link_search" slot="search">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
           <circle cx="8" cy="8" r="7" stroke="rgb(255,255,255)" stroke-width="1" fill="none"/>
           <line x1="14" y1="14" x2="20" y2="20" style="stroke:rgb(255,255,255);stroke-width:2"/>
         </svg>
       </router-link>
-    <router-link to="/home" slot="msiteTitle" class="msite_title">
-      <span class="title_text ellipsis">{{msiteTitle}}</span>
-    </router-link>
+      <router-link to="/home" slot="msiteTitle" class="msite_title">
+        <span class="title_text ellipsis">{{msiteTitle}}</span>
+      </router-link>
     </app-header>
     <nav class="msite_nav">
       <div class="swiper-container" v-if="foodTypes.length">
         <div class="swiper-wrapper">
             <div class="swiper-slide food_types_container" v-for="(item, index) in foodTypes" :key="index">
-              <router-link :to="{path: '/food', query: {geohash, title: foodItem.title, restaurant_category_id: getCategoryId(foodItem.link)}}" v-for="foodItem in item" :key="foodItem.id" class="link_to_food">
+              <router-link :to="{path: '/food', query: {geohash, title: foodType.title, restaurant_category_id: getCategoryId(foodType.link)}}" v-for="foodType in item" :key="foodType.id" class="link_to_food">
                 <figure>
-                  <img :src="imgBaseUrl + foodItem.image_url">
-                  <figcaption>{{foodItem.title}}</figcaption>
+                  <img :src="imgBaseUrl + foodType.image_url">
+                  <figcaption>{{foodType.title}}</figcaption>
                 </figure>
               </router-link>
             </div>
@@ -70,7 +70,7 @@ export default {
     // 保存geohash 到vuex
     this.SAVE_GEOHASH(this.geohash)
     // 获取位置信息
-    const res = await msiteAddress(this.geohash)
+    const res = await msiteAddress(this.geohash);console.log('-----address',res)
     this.msiteTitle = res.name
     // 记录当前经度纬度
     this.RECORD_ADDRESS(res)
@@ -86,7 +86,7 @@ export default {
       for (let i = 0, j = 0; i < resLength; i += 8, j++) {
         foodArr[j] = resArr.splice(0, 8)
       }
-      this.foodTypes = foodArr; console.log('--------foodTypes', res)
+      this.foodTypes = foodArr; console.log('------foodTypes', res)
     }).then(() => {
       // 初始化swiper
       // new Swiper('.swiper-container', {
@@ -108,23 +108,25 @@ export default {
       'RECORD_ADDRESS', 'SAVE_GEOHASH',
     ]),
     // 解码url地址，求去restaurant_category_id值
-    getCategoryId(url) { // "eleme://restaurants?filter_key=%7B%22category_schema%22%3A%7B%22category_name%22%3A%22%5Cu751c%5Cu54c1%5Cu996e%5Cu54c1%22%2C%22complex_category_ids%22%3A%5B240%2C241%2C242%5D%2C%22is_show_all_category%22%3Atrue%7D%2C%22restaurant_category_id%22%3A%7B%22id%22%3A239%2C%22name%22%3A%22%5Cu751c%5Cu54c1%5Cu996e%5Cu54c1%22%2C%22sub_categories%22%3A%5B%5D%2C%22image_url%22%3A%22%22%7D%2C%22activities%22%3A%5B%5D%7D&target_name=%E7%94%9C%E5%93%81%E9%A5%AE%E5%93%81&animation_type=1&is_need_mark=0&banner_type="
-      const urlData = decodeURIComponent(url.split('=')[1].replace('&target_name', '')); console.log('urlData:', urlData)
+    getCategoryId(url) {
+      // url: `eleme://restaurants?
+      // filter_key={
+      //   "category_schema":{"category_name":"\u751c\u54c1\u996e\u54c1","complex_category_ids":[240,241,242],"is_show_all_category":true},
+      //   "restaurant_category_id":{"id":239,"name":"\u751c\u54c1\u996e\u54c1","sub_categories":[],"image_url":""},
+      //   "activities":[]
+      // }&target_name=甜品饮品&animation_type=1&is_need_mark=0&banner_type=`
+      const urlData = decodeURIComponent(url.split('=')[1].replace('&target_name', ''))
       if (/restaurant_category_id/gi.test(urlData)) {
         return JSON.parse(urlData).restaurant_category_id.id
       }
       return ''
     },
-  },
-  watch: {
-
-  },
+  }
 }
 
 </script>
 
 <style lang="scss" scoped>
-// @import '../assets/style/swiper.min.css';
 @import '../assets/style/mixin';
 .link_search{
   left: .8rem;

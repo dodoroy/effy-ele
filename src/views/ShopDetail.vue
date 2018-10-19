@@ -115,85 +115,85 @@ export default {
 @import '../assets/style/mixin';
 
 .rating_page{
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-    padding-top: 1.95rem;
-background-color: #ebebeb;
-z-index: 18;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-top: 1.95rem;
+  background-color: #ebebeb;
+  z-index: 18;
 }
 .activities_container{
-    background-color: #fff;
-    margin: .4rem 0;
-    padding-bottom: .6rem;
-    header{
-        @include sc(.75rem, #333);
-        line-height: 1.8rem;
-        padding-left: .6rem;
-        border-bottom: 1px solid #f1f1f1;
-        margin-bottom: .3rem;
+  background-color: #fff;
+  margin: .4rem 0;
+  padding-bottom: .6rem;
+  header{
+    @include sc(.75rem, #333);
+    line-height: 1.8rem;
+    padding-left: .6rem;
+    border-bottom: 1px solid #f1f1f1;
+    margin-bottom: .3rem;
+  }
+  .actibities_ul{
+    padding: 0 .6rem;
+    li{
+      margin-bottom: .2rem;
+      span:nth-of-type(1){
+        @include sc(.45rem, #fff);
+        padding: .1rem;
+        border: 1px;
+        border-radius: 0.1rem;
+        margin-right: .2rem;
+      }
+      span:nth-of-type(2){
+        @include sc(.55rem, #666);
+      }
     }
-    .actibities_ul{
-        padding: 0 .6rem;
-        li{
-            margin-bottom: .2rem;
-            span:nth-of-type(1){
-                @include sc(.45rem, #fff);
-                padding: .1rem;
-                border: 1px;
-                border-radius: 0.1rem;
-                margin-right: .2rem;
-            }
-            span:nth-of-type(2){
-                @include sc(.55rem, #666);
-            }
-        }
-    }
+  }
 }
 .shop_status_container{
     background-color: #fff;
     margin-bottom: .4rem;
     .shop_status_header{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        line-height: 1.8rem;
-        padding: 0 .6rem;
-        border-bottom: 0.025rem solid #f1f1f1;
-        .shop_detail_title{
-            @include sc(.75rem, #333);
-        }
-        .identification_detail{
-            @include sc(.7rem, #bbb);
-            vertical-align: middle;
-        }
-        svg{
-            @include wh(.6rem, .6rem);
-            vertical-align: middle;
-        }
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      line-height: 1.8rem;
+      padding: 0 .6rem;
+      border-bottom: 0.025rem solid #f1f1f1;
+      .shop_detail_title{
+        @include sc(.75rem, #333);
+      }
+      .identification_detail{
+        @include sc(.7rem, #bbb);
+        vertical-align: middle;
+      }
+      svg{
+        @include wh(.6rem, .6rem);
+        vertical-align: middle;
+      }
     }
     .shop_statu_detail{
-        display: flex;
-        padding: .6rem;
-        svg{
-            @include wh(2rem, 2rem);
-            margin-right: .6rem;
+      display: flex;
+      padding: .6rem;
+      svg{
+        @include wh(2rem, 2rem);
+        margin-right: .6rem;
+      }
+      .check_date{
+        span{
+          @include sc(.55rem, #666);
         }
-        .check_date{
-            span{
-                @include sc(.55rem, #666);
-            }
-            .shop_status_well{
-                color: rgb(126, 211, 33);
-            }
-            .shop_status_bad{
-                color: red;
-            }
+        .shop_status_well{
+          color: rgb(126, 211, 33);
         }
+        .shop_status_bad{
+          color: red;
+        }
+      }
     }
-}
+  }
 .shop_status_info{
     background-color: #fff;
     margin-bottom: .4rem;

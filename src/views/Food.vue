@@ -1,6 +1,6 @@
 <template>
   <div class="food_container">
-    <app-header :headTitle="headTitle" goBack="true"></app-header>
+    <app-header :head-title="headTitle" go-back="true"></app-header>
     <section class="sort_container">
       <!-- 分类 -->
       <div class="sort_item" :class="{choose_type:sortBy == 'food'}" >
@@ -322,7 +322,7 @@ export default {
       this.support_ids.splice(index, 1, {
         status: !this.support_ids[index].status,
         id,
-      })
+      })//console.log(this.support_ids)
       // 重新计算filterNum的个数
       this.filterNum = this.delivery_mode == null ? 0 : 1
       this.support_ids.forEach((item) => {
@@ -402,7 +402,7 @@ export default {
     transform: translateY(0);
   }
   .showlist-enter,
-  .showlist-leave-active {
+  .showlist-leave-active { //???
     opacity: 0;
     transform: translateY(-100%);
   }

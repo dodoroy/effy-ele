@@ -7,7 +7,7 @@
 				</section>
 				<hgroup class="shop_right">
 					<header class="shop_detail_header">
-						<h4 :class="item.is_premium? 'premium': ''" class="" class="shop_title ellipsis">{{item.name}}</h4>
+						<h4 :class="item.is_premium? 'premium shop_title ellipsis': 'shop_title ellipsis'">{{item.name}}</h4>
 						<ul class="shop_detail_ul">
 							<li v-for="item in item.supports" :key="item.id" class="supports">{{item.icon_name}}</li>
 						</ul>
@@ -58,7 +58,7 @@
 		</aside>
 		<div ref="abc" style="background-color: red;"></div>
 		<transition name="loading">
-			<Loading v-show="showLoading"></Loading>
+			<loading v-show="showLoading"></loading>
 		</transition>
 	</div>
 </template>
@@ -69,7 +69,7 @@ import { mapState } from 'vuex'
 import { shopList } from '@/service/getData'
 import { imgBaseUrl } from '@/config/env'
 import { showBack, animate } from '@/config/mUtils'
-import { loadMore, getImgPath } from './mixin'
+import { loadMore } from './mixin'
 import Loading from './Loading'
 import RatingStar from './RatingStar'
 
@@ -93,7 +93,7 @@ export default {
     RatingStar,
   },
   props: ['restaurantCategoryId', 'restaurantCategoryIds', 'sortByType', 'deliveryMode', 'supportIds', 'confirmSelect', 'geohash'],
-  mixins: [loadMore, getImgPath],
+  mixins: [loadMore],
   computed: {
     ...mapState([
       'latitude', 'longitude',
@@ -131,7 +131,10 @@ export default {
       // 数据的定位加20位
       this.offset += 20
       const res = await shopList(this.latitude, this.longitude, this.offset, this.restaurantCategoryId)
-      this.hideLoading()
+      setTimeout(() => {
+        this.hideLoading()
+      }, 1000)
+      //this.hideLoading()
       this.shopListArr = [...this.shopListArr, ...res]
       // 当获取数据小于20，说明没有更多数据，不需要再次请求数据
       if (res.length < 20) {
@@ -142,7 +145,7 @@ export default {
     },
     // 返回顶部
     backTop() {
-      animate(document.body, { scrollTop: '0' }, 400, 'ease-out')
+      animate(document.documentElement, { scrollTop: '0' }, 400, 'ease-out')
     },
     // 监听父级传来的数据发生变化时，触发此函数重新根据属性值获取数据
     async listenPropChange() {
@@ -327,7 +330,8 @@ export default {
 		bottom: 3rem;
 		right: 1rem;
 		.back_top_svg{
-			@include wh(2rem, 2rem);
+      @include wh(2rem, 2rem);
+      background: #fff;
 		}
 	}
 	.loading-enter-active, .loading-leave-active {

@@ -1,4 +1,4 @@
- <template>
+<template>
 <div>
   <section v-if="!showLoading" class="shop_container">
     <nav class="goback" @click="goback">
@@ -67,8 +67,9 @@
       <div>
           <span :class='{activity_show: changeShowType =="rating"}' @click="changeShowType='rating'">评价</span>
       </div>
-  </section>
-  <transition name="fade-choose">
+    </section>
+    <!-- 商品tab -->
+    <transition name="fade-choose">
       <section v-show="changeShowType =='food'" class="food_container">
           <section class="menu_container">
               <section class="menu_left" id="wrapper_menu" ref="wrapperMenu">
@@ -107,7 +108,6 @@
                                                 <p :style="{color: attribute.icon_name == '新'? '#fff' : '#' + attribute.icon_color}">{{attribute.icon_name == '新'? '新品':attribute.icon_name}}</p>
                                                 </li>
                                             </ul>
-
                                         </h3>
                                         <p class="food_description_content">{{foods.description}}</p>
                                         <p class="food_description_sale_rating">
@@ -132,6 +132,7 @@
                     </ul>
                 </section>
             </section>
+            <!-- 底部购物车 -->
             <section class="buy_cart_container">
                 <section @click="toggleCartList" class="cart_icon_num">
                     <div class="cart_icon_container" :class="{cart_icon_activity: totalPrice > 0, move_in_cart:receiveInCart}" ref="cartContainer">
@@ -195,11 +196,11 @@
             </transition>
         </section>
     </transition>
+    <!-- 评价tab -->
     <transition name="fade-choose">
         <section class="rating_container" id="ratingContainer" v-show="changeShowType =='rating'">
             <section v-load-more="loaderMoreRating" type="2">
                 <section>
-
                     <header class="rating_header">
                         <section class="rating_header_left">
                             <p>{{shopDetailData.rating}}</p>
@@ -257,8 +258,9 @@
             </section>
         </section>
     </transition>
-</section>
-<section>
+  </section>
+  <!-- foode规格选择浮层 -->
+  <section>
     <transition name="fade">
         <div class="specs_cover" @click="showChooseList" v-if="showSpecs"></div>
     </transition>
@@ -289,26 +291,31 @@
         </div>
     </transition>
   </section>
+
   <transition name="fade">
       <p class="show_delete_tip" v-if="showDeleteTip">多规格商品只能去购物车删除哦</p>
   </transition>
+
   <transition
-  appear
-  @after-appear = 'afterEnter'
-  @before-appear="beforeEnter"
-  v-for="(item,index) in showMoveDot"
-  :key="index"
-  >
-      <span class="move_dot" v-if="item">
-          <svg class="move_liner">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-add"></use>
-          </svg>
-      </span>
+    appear
+    @after-appear = 'afterEnter'
+    @before-appear="beforeEnter"
+    v-for="(item,index) in showMoveDot"
+    :key="index"
+    >
+    <span class="move_dot" v-if="item">
+        <svg class="move_liner">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-add"></use>
+        </svg>
+    </span>
   </transition>
+
   <loading v-show="showLoading || loadRatings"></loading>
+
   <section class="animation_opactiy shop_back_svg_container" v-if="showLoading">
       <img src="../assets/images/shop_back_svg.svg">
   </section>
+
   <transition name="router-slid" mode="out-in">
       <router-view></router-view>
   </transition>
@@ -336,31 +343,31 @@ export default {
       showActivities: false, // 是否显示活动详情
       menuList: [], // 食品列表
       menuIndex: 0, // 已选菜单索引值，默认为0
-      menuIndexChange: true, // 解决选中index时，scroll监听事件重复判断设置index的bug
-      shopListTop: [], // 商品列表的高度集合
+      menuIndexChange: true, // 解决选中index时，scroll监听事件重复判断设置index的bug？？？？
+      shopListTop: [], // 商品列表的高度集合？？？
       TitleDetailIndex: null, // 点击展示列表头部详情
-      categoryNum: [], // 商品类型右上角已加入购物车的数量
+      categoryNum: [], // 左侧menu商品类型右上角已加入购物车的数量
       totalPrice: 0, // 总共价格
       cartFoodList: [], // 购物车商品列表
       showCartList: false, // 显示购物车列表
-      receiveInCart: false, // 购物车组件下落的圆点是否到达目标位置
+      receiveInCart: false, // 购物车组件下落的圆点是否到达目标位置？？
       ratingList: null, // 评价列表
       ratingOffset: 0, // 评价获取数据offset值
-      ratingScoresData: null, // 评价总体分数
-      ratingTagsList: null, // 评价分类列表
-      ratingTageIndex: 0, // 评价分类索引
-      preventRepeatRequest: false, // 防止多次触发数据请求
-      ratingTagName: '', // 评论的类型
-      loadRatings: false, // 加载更多评论是显示加载组件
-      foodScroll: null, // 食品列表scroll
+      ratingScoresData: null, // 评价总体分数？？
+      ratingTagsList: null, // 评价分类列表？？
+      ratingTageIndex: 0, // 评价分类索引？？
+      preventRepeatRequest: false, // 防止多次触发数据请求？？
+      ratingTagName: '', // 评论的类型？？
+      loadRatings: false, // 加载更多评论时显示加载组件
+      foodScroll: null, // 食品列表scroll？？
       showSpecs: false, // 控制显示食品规格
       specsIndex: 0, // 当前选中的规格索引值
-      choosedFoods: null, // 当前选中视频数据
+      choosedFoods: null, // 当前选中视频数据？？
       showDeleteTip: false, // 多规格商品点击减按钮，弹出提示框
-      showMoveDot: [], // 控制下落的小圆点显示隐藏
+      showMoveDot: [], // 控制下落的小圆点显示隐藏？？
       windowHeight: null, // 屏幕的高度
-      elLeft: 0, // 当前点击加按钮在网页中的绝对top值
-      elBottom: 0, // 当前点击加按钮在网页中的绝对left值
+      elLeft: 0, // 当前点击加按钮在网页中的绝对top值？？
+      elBottom: 0, // 当前点击加按钮在网页中的绝对left值？？
       ratingScroll: null, // 评论页Scroll
       imgBaseUrl,
     }
@@ -442,14 +449,16 @@ export default {
       this.RECORD_SHOPDETAIL(this.shopDetailData)
       // 隐藏加载动画
       this.hideLoading()
-      console.log('shopDetai',this.shopDetailData)
+      console.log('shopDetail',this.shopDetailData)
       console.log('menulist',this.menuList)
       console.log('ratingList',this.ratingList)
+      console.log('ratingscores',this.ratingScoresData)
+      console.log('ratingTagsList',this.ratingTagsList)
     },
     // 获取食品列表的高度，存入shopListTop
     getFoodListHeight() {
       const listContainer = this.$refs.menuFoodList
-      const listArr = Array.from(listContainer.children[0].children)
+      const listArr = Array.from(listContainer.children[0].children);console.log('ssss',listArr)
       listArr.forEach((item, index) => {
         this.shopListTop[index] = item.offsetTop
       })
@@ -518,8 +527,8 @@ export default {
       })
     },
     /**
-             * 初始化和shopCart变化时，重新获取购物车改变过的数据，赋值 categoryNum，totalPrice，cartFoodList，整个数据流是自上而下的形式，所有的购物车数据都交给vuex统一管理，包括购物车组件中自身的商品数量，使整个数据流更加清晰
-             */
+     * 初始化和shopCart变化时，重新获取购物车改变过的数据，赋值 categoryNum，totalPrice，cartFoodList，整个数据流是自上而下的形式，所有的购物车数据都交给vuex统一管理，包括购物车组件中自身的商品数量，使整个数据流更加清晰
+     */
     initCategoryNum() {
       const newArr = []
       let cartFoodNum = 0

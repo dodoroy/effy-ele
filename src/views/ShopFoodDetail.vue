@@ -1,5 +1,5 @@
  <template>
-	<div class="rating_page">
+	  <div class="rating_page">
         <app-header :head-title="name" go-back='true'></app-header>
         <section class="header_img">
             <img :src="imgBaseUrl + image_path" class="food_img">
@@ -33,7 +33,7 @@
 import AppHeader from '@/components/AppHeader'
 import {getImgPath} from '@/components/mixin'
 import RatingStar from '@/components/RatingStar'
-import BuyCart from '@/components/BuyCart'
+//import BuyCart from '@/components/BuyCart'
 import {imgBaseUrl} from '@/config/env'
 
 export default {
@@ -66,7 +66,7 @@ export default {
   components: {
     AppHeader,
     RatingStar,
-    BuyCart,
+    //BuyCart,
   },
   props:[],
   methods: {
@@ -79,13 +79,13 @@ export default {
 @import '../assets/style/mixin';
 
 .rating_page{
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background-color: #fff;
-z-index: 12;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    z-index: 12;
     padding-top: 1.95rem;
     p, span{
         font-family: Helvetica Neue,Tahoma,Arial;

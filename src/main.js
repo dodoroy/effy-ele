@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store/index'
-import '@/config/rem'
+import './config/rem'
 import FastClick from 'fastclick'
 
 if ('addEventListener' in document) {
@@ -10,7 +10,6 @@ if ('addEventListener' in document) {
     FastClick.attach(document.body)
   }, false)
 }
-
 
 Vue.config.productionTip = false
 

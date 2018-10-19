@@ -15,6 +15,7 @@ export default {
     const res = await getUser()
     commit(GET_USERINFO, res)
   },
+
   async saveAddress({
     commit,
     state,

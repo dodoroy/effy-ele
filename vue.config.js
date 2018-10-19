@@ -1,5 +1,5 @@
 module.exports = {
-  baseUrl: 'elm',
+  baseUrl: 'ele',
   devServer: {
     proxy: {
       '/v1': {
